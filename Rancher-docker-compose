@@ -1,0 +1,22 @@
+Install by docker run
+
+docker run -d --restart=unless-stopped \
+  -p 80:80 -p 443:443 \
+  -v /opt/rancher:/var/lib/rancher \
+  rancher/rancher:latest
+  
+  
+ 
+Install by docker-compose  
+docker-compose.yml
+  
+version: '3.3'
+services:
+    rancher:
+        restart: unless-stopped
+        ports:
+            - '80:80'
+            - '443:443'
+        volumes:
+            - '/opt/rancher:/var/lib/rancher'
+        image: 'rancher/rancher:latest'
