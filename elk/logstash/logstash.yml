@@ -1,0 +1,48 @@
+input {
+    rabbitmq {
+        host => "rabbitmq"
+        port => 5672
+        subscription_retry_interval_seconds => 5
+        durable => true
+        auto_delete => true
+        user => "serviceadmin"
+        password => "4E7AVjrdOJFAPp"
+        type => "Test-Logs"
+        vhost => "logsistemi"
+        queue => "IddaaLogQueue"
+        threads => 5
+    }
+
+            rabbitmq {
+        host => "rabbitmq"
+        port => 5672
+        subscription_retry_interval_seconds => 5
+        durable => true
+        auto_delete => true
+        user => "serviceadmin"
+        password => "4E7AVjrdOJFAPp"
+        type => "BetSlipCancelation-Logs"
+        vhost => "logsistemi"
+        queue => "IddaaBetSlipCancelationLogQueue"
+        threads => 5
+    }
+}
+
+output {
+        if "Test-Logs" in [type] {
+                elasticsearch {
+                        hosts => ["elasticsearch:9200"]
+                        index => ["iddaa-test-logs-%{+YYYY.MM.dd}"]
+                }
+        }
+
+                else if "BetSlipCancelation-Logs" in [type] {
+                elasticsearch {
+                        hosts => ["elasticsearch:9200"]
+                        index => ["iddaa-betslipcancelation-test-logs-%{+YYYY.MM.dd}"]
+                }
+
+        }
+
+
+}
