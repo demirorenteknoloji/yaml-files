@@ -15,13 +15,8 @@ services:
       - 80:80
       - 443:443
       - 22:22
-    networks:
-      - front-tier
     volumes:
       - /gitlab/conf:/etc/gitlab
       - /gitlab/ssl:/etc/ssl/certs/gitlab
       - /gitlab/logs:/var/log/gitlab
       - /gitlab/main:/var/opt/gitlab
-networks:
-  front-tier:
-    driver: bridge
